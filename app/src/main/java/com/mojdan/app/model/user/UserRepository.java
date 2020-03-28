@@ -3,15 +3,9 @@ package com.mojdan.app.model.user;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository {
+import org.springframework.data.repository.CrudRepository;
 
-	int count();
-
-    int save(User user);
-
-    int update(User user);
-
-    int deleteById(Long id);
+public interface UserRepository extends CrudRepository<User, Long> {
 
     List<User> findAll();
 

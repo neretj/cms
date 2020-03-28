@@ -4,16 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductRepository {
+import org.springframework.data.repository.CrudRepository;
 
-
-    int count();
-
-    int save(Product product);
-
-    int update(Product product);
-
-    int deleteById(Long id);
+public interface ProductRepository extends CrudRepository<Product, Long>{
 
     List<Product> findAll();
 
