@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.mojdan.app.model.user.User;
 
+@Service
 public interface UserService {
 
 	public Iterable findAll();
