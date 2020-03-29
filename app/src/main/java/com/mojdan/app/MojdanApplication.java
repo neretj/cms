@@ -15,12 +15,12 @@ import com.mojdan.app.model.user.UserRepository;
 
 @EntityScan("com.mojdan.app.model")
 @SpringBootApplication
-public class AccessingDataJpaApplication {
+public class MojdanApplication {
 
-	private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(MojdanApplication.class);
 
 	  public static void main(String[] args) {
-	    SpringApplication.run(AccessingDataJpaApplication.class);
+	    SpringApplication.run(MojdanApplication.class);
 	  }
 
 	  @Bean
