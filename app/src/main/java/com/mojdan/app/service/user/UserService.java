@@ -2,6 +2,7 @@ package com.mojdan.app.service.user;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
