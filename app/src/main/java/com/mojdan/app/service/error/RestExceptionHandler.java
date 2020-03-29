@@ -1,4 +1,4 @@
-package com.mojdan.app.service.util;
+package com.mojdan.app.service.error;
 
 import javax.validation.ConstraintViolationException;
 

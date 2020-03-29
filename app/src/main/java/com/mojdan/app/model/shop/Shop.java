@@ -1,4 +1,4 @@
-package com.mojdan.app.model.user;
+package com.mojdan.app.model.shop;
 
 import java.util.List;
 
@@ -12,39 +12,31 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.mojdan.app.model.address.Address;
-import com.mojdan.app.model.order.ClientOrder;
+import com.mojdan.app.model.product.Product;
 
 @Entity
-public class User {
+public class Shop {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@NotNull(message = "Name is required.")
 	@Basic(optional = false)
 	private String name;
-	
-	@NotNull(message = "Surname is required.")
-	@Basic(optional = false)
-	private String surname;
-	
+
 	@OneToOne
 	private Address address;
 
-	@OneToMany(mappedBy = "user")	
-	private List<ClientOrder> clientOrders;
-	
-	public User() {
-	}
+	@OneToMany(mappedBy = "shop")
+	private List<Product> products;
 
-	public User(String name, String surname) {
+	public Shop(Long id, @NotNull(message = "Name is required.") String name, Address address, List<Product> products) {
+		super();
+		this.id = id;
 		this.name = name;
-		this.surname = surname;
-	}
-
-	public User(String name) {
-		this.name = name;
+		this.address = address;
+		this.products = products;
 	}
 
 	public Long getId() {
@@ -63,14 +55,6 @@ public class User {
 		this.name = name;
 	}
 
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
 	public Address getAddress() {
 		return address;
 	}
@@ -79,17 +63,12 @@ public class User {
 		this.address = address;
 	}
 
-	public List<ClientOrder> getOrders() {
-		return clientOrders;
+	public List<Product> getProducts() {
+		return products;
 	}
 
-	public void setOrders(List<ClientOrder> clientOrders) {
-		this.clientOrders = clientOrders;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + "]";
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 }

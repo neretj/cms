@@ -27,11 +27,11 @@ public class MojdanApplication {
 	  public CommandLineRunner demo(UserRepository repository) {
 	    return (args) -> {
 	      // save a few users
-	      repository.save(new User("Jack"));
-	      repository.save(new User("Chloe"));
-	      repository.save(new User("Kim"));
-	      repository.save(new User("David"));
-	      repository.save(new User("Michelle"));
+	      repository.save(new User("Jack", "Aaa"));
+	      repository.save(new User("Chloe", "Jane"));
+	      repository.save(new User("Kim", "Heinz"));
+	      repository.save(new User("David", "Jones"));
+	      repository.save(new User("Michelle", "Add"));
 
 	      // fetch all users
 	      log.info("Users found with findAll():");
