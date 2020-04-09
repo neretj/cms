@@ -1,6 +1,6 @@
 package com.mojdan.app.service.user;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,33 +16,44 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public Iterable findAll() {
+	@Override
+	public Iterable<User> findAll() {
 		return userRepository.findAll();
 	}
 
-	public List findByName(String name) {
-		return userRepository.findByName(name);
+	@Override
+	public ArrayList<User> findByName(String name) {
+		return new ArrayList<User> (userRepository.findByName(name));
 	}
 
+	@Override
 	public User findOne(Long id) {
 		Optional<User> user = userRepository.findById(id);
 		return user.get();
 	}
 
+	@Override
 	public User create(User user) {
 		return userRepository.save(user);
 	}
 
+	@Override
 	public void delete(Long id) {
 		userRepository.findById(id);
 		userRepository.deleteById(id);
 	}
 
+	@Override
 	public User updateUser(User user, Long id) {
 		if (user.getId() != id) {
 			throw new UserIdMismatchException();
 		}
 		userRepository.findById(id);
+		return userRepository.save(user);
+	}
+
+	@Override
+	public User save(User user) {
 		return userRepository.save(user);
 	}
 

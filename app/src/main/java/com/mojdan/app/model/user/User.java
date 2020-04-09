@@ -21,6 +21,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	private String username;
+	
+	private String password;
+	
 	@NotNull(message = "Name is required.")
 	@Basic(optional = false)
 	private String name;
@@ -36,6 +40,13 @@ public class User {
 	private List<ClientOrder> clientOrders;
 	
 	public User() {
+	}
+	
+	public User(String username, String password, String name, String surname) {
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.surname = surname;
 	}
 
 	public User(String name, String surname) {
@@ -84,6 +95,30 @@ public class User {
 	}
 
 	public void setOrders(List<ClientOrder> clientOrders) {
+		this.clientOrders = clientOrders;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public List<ClientOrder> getClientOrders() {
+		return clientOrders;
+	}
+
+	public void setClientOrders(List<ClientOrder> clientOrders) {
 		this.clientOrders = clientOrders;
 	}
 

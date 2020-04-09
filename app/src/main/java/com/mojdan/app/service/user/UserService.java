@@ -1,8 +1,7 @@
 package com.mojdan.app.service.user;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -10,9 +9,9 @@ import com.mojdan.app.model.user.User;
 
 public interface UserService {
 
-	public Iterable findAll();
+	public Iterable<User> findAll();
 
-	public List findByName(@PathVariable String name);
+	public ArrayList<User> findByName(@PathVariable String name);
 
 	public User findOne(@PathVariable Long id);
 
@@ -21,5 +20,7 @@ public interface UserService {
 	public void delete(@PathVariable Long id);
 
 	public User updateUser(@RequestBody User user, @PathVariable Long id);
+
+	public User save(User user);
 
 }
