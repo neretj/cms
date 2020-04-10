@@ -4,6 +4,8 @@ package com.mojdan.app.jwt.security;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -20,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static com.mojdan.app.jwt.security.Constant.SUPER_SECRET_KEY;
-import static com.mojdan.app.jwt.security.Constant.TOKEN_EXPIRATION_TIME;
+import static com.mojdan.app.jwt.security.Constant.EXPIRATION;
 import static com.mojdan.app.jwt.security.Constant.HEADER_AUTHORIZACION_KEY;
 import static com.mojdan.app.jwt.security.Constant.TOKEN_BEARER_PREFIX;
 import static com.mojdan.app.jwt.security.Constant.ISSUER_INFO;
@@ -60,11 +62,26 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
-
-		String token = Jwts.builder().setIssuedAt(new Date()).setIssuer(ISSUER_INFO)
-				.setSubject(((User)auth.getPrincipal()).getUsername())
-				.setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
-				.signWith(SignatureAlgorithm.HS512, SUPER_SECRET_KEY).compact();
-		response.addHeader(HEADER_AUTHORIZACION_KEY, TOKEN_BEARER_PREFIX + " " + token);
+		
+		Map<String, Object> claims = new HashMap<String, Object>();
+		
+		claims.put("userDetails", (User)auth.getPrincipal());		
+		String token = doGenerateToken(claims, ((User)auth.getPrincipal()).getUsername());			
+		response.addHeader(HEADER_AUTHORIZACION_KEY, TOKEN_BEARER_PREFIX + " " + token);				
 	}
+	
+	private static String doGenerateToken(Map<String, Object> claims, String subject) {
+		  final Date createdDate = new Date();
+		  final Date expirationDate = new Date(createdDate.getTime() + EXPIRATION * 1000);
+		  
+		  return Jwts.builder()					 
+		      .setClaims(claims)
+		      .setSubject(subject)
+		      .setIssuedAt(createdDate)
+		      .setIssuer(ISSUER_INFO)
+		      .setExpiration(expirationDate)
+		      .signWith(SignatureAlgorithm.HS512, SUPER_SECRET_KEY)
+		      .compact();
+	}
+
 }

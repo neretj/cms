@@ -62,7 +62,7 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public User create(@RequestBody User user) {
 		LOGGER.info("Creating user...", user.toString());
-		return userService.create(user);
+		return userService.save(user);
 	}
 
 	@DeleteMapping("/{id}")

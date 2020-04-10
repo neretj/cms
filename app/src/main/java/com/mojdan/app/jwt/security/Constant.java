@@ -8,7 +8,7 @@ public class Constant {
 		public static final String TOKEN_BEARER_PREFIX = "Bearer ";
 
 		// JWT
-		public static final String ISSUER_INFO = "https://www.autentia.com/";
-		public static final String SUPER_SECRET_KEY = "1234";
-		public static final long TOKEN_EXPIRATION_TIME = 864_000_000; // 10 day
+		public static final String ISSUER_INFO = "mojdan";
+		public static final String SUPER_SECRET_KEY = "20m0j4?20";
+		public static final long EXPIRATION = 18000; // gExpirationTimeInSeconds 5 Horas 
 }
