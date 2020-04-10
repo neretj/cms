@@ -3,11 +3,12 @@ package com.mojdan.app.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,52 +20,48 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mojdan.app.model.user.User;
 import com.mojdan.app.service.user.UserService;
-import com.mojdan.app.service.user.util.UserIdMismatchException;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/users")
 public class UserController {
 
+	private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	
 	@Autowired
 	private UserService userService;
-
-	@RequestMapping("/")
-	public String home() {
-		return "Hello World";
-	}
 	
 	@RequestMapping("/user")
 	public Principal user(Principal user) {
 		return user;
 	}
 
-	/*
-	 * @RequestMapping("/user") public Principal user(HttpServletRequest request) {
-	 * String authToken = request.getHeader("Authorization")
-	 * .substring("Basic".length()).trim(); return () -> new
-	 * String(Base64.getDecoder() .decode(authToken)).split(":")[0]; }
-	 */
-
 	@GetMapping
+	@RequestMapping("/")
 	public Iterable<User> findAll() {
-		return userService.findAll();
+		LOGGER.info("Finding all users...");
+		Iterable<User> list = userService.findAll();
+		LOGGER.info("...returning users ", list.toString());
+		return list;
 	}
 
-	@GetMapping("/name/{userName}")
+	@GetMapping("/name/{name}")
 	public List<User> findByName(@PathVariable String name) {
+		LOGGER.trace("Finding user by name...");
 		return userService.findByName(name);
 	}
 
-	@GetMapping("/{id}")
-	@ExceptionHandler()
+	@GetMapping("/find/{id}")
 	public User findOne(@PathVariable Long id) {
-		User user = userService.findOne(id);
+		LOGGER.info("Finding user by id", id);
+		User user = userService.findOne(id).get();
 		return user;
 	}
 
-	@PostMapping
+	@PostMapping("/create")
 	@ResponseStatus(HttpStatus.CREATED)
 	public User create(@RequestBody User user) {
+		LOGGER.info("Creating user...", user.toString());
 		return userService.create(user);
 	}
 
@@ -74,12 +71,10 @@ public class UserController {
 		userService.delete(id);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
 	public User updateUser(@RequestBody User user, @PathVariable Long id) {
-		if (user.getId() != id) {
-			throw new UserIdMismatchException();
-		}
+		LOGGER.info("Updating user...", id);
 		userService.findOne(id);
-		return userService.save(user);
+		return userService.updateUser(user, id);
 	}
 }

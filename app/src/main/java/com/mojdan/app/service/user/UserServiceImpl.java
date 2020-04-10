@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mojdan.app.model.user.User;
 import com.mojdan.app.model.user.UserRepository;
-import com.mojdan.app.service.user.util.UserIdMismatchException;
+import com.mojdan.app.service.error.UserIdMismatchException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,9 +27,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findOne(Long id) {
+	public Optional<User> findOne(Long id) {
 		Optional<User> user = userRepository.findById(id);
-		return user.get();
+		return user;
 	}
 
 	@Override
