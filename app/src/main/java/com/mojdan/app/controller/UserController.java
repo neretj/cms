@@ -27,10 +27,11 @@ import com.mojdan.app.service.user.UserService;
 public class UserController {
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
+	
 	@Autowired
 	private UserService userService;
 
+	
 	@RequestMapping("/user")
 	public Principal user(Principal user) {
 		return user;
@@ -62,7 +63,7 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public User create(@RequestBody User user) {
 		LOGGER.info("Creating user...", user.toString());
-		return userService.save(user);
+		return userService.create(user);
 	}
 
 	@DeleteMapping("/{id}")
