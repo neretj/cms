@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 
 @Transactional
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface SellerRepository extends CrudRepository<User, Long> {
 
-    List<User> findAll();
+	List<User> findAll();
 
     List<User> findByName(String name);
 

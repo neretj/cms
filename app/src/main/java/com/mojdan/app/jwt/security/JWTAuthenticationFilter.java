@@ -1,6 +1,12 @@
 package com.mojdan.app.jwt.security;
 
 
+import static com.mojdan.app.jwt.security.Constant.EXPIRATION;
+import static com.mojdan.app.jwt.security.Constant.HEADER_AUTHORIZACION_KEY;
+import static com.mojdan.app.jwt.security.Constant.ISSUER_INFO;
+import static com.mojdan.app.jwt.security.Constant.SUPER_SECRET_KEY;
+import static com.mojdan.app.jwt.security.Constant.TOKEN_BEARER_PREFIX;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,18 +26,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import static com.mojdan.app.jwt.security.Constant.SUPER_SECRET_KEY;
-import static com.mojdan.app.jwt.security.Constant.EXPIRATION;
-import static com.mojdan.app.jwt.security.Constant.HEADER_AUTHORIZACION_KEY;
-import static com.mojdan.app.jwt.security.Constant.TOKEN_BEARER_PREFIX;
-import static com.mojdan.app.jwt.security.Constant.ISSUER_INFO;
-
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
-//import io.jsonwebtoken.Jwts;
-//import io.jsonwebtoken.SignatureAlgorithm;
 
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

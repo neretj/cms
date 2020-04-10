@@ -1,47 +1,43 @@
 package com.mojdan.app.model.user;
 
-import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.mojdan.app.model.address.Address;
-import com.mojdan.app.model.order.ClientOrder;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String username;
-	
+
 	private String password;
-	
-	@NotNull(message = "Name is required.")
+
+	@NotNull(message = "Firstname is required.")
 	@Basic(optional = false)
 	private String name;
-	
+
 	@NotNull(message = "Surname is required.")
 	@Basic(optional = false)
 	private String surname;
-	
+
 	@OneToOne
 	private Address address;
 
-	@OneToMany(mappedBy = "user")	
-	private List<ClientOrder> clientOrders;
-	
 	public User() {
 	}
-	
+
 	public User(String username, String password, String name, String surname) {
 		this.username = username;
 		this.password = password;
@@ -90,14 +86,6 @@ public class User {
 		this.address = address;
 	}
 
-	public List<ClientOrder> getOrders() {
-		return clientOrders;
-	}
-
-	public void setOrders(List<ClientOrder> clientOrders) {
-		this.clientOrders = clientOrders;
-	}
-
 	public String getUsername() {
 		return username;
 	}
@@ -112,14 +100,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<ClientOrder> getClientOrders() {
-		return clientOrders;
-	}
-
-	public void setClientOrders(List<ClientOrder> clientOrders) {
-		this.clientOrders = clientOrders;
 	}
 
 	@Override

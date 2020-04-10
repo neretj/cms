@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.mojdan.app.model.product.Product;
+import com.mojdan.app.model.user.Customer;
 import com.mojdan.app.model.user.User;
 
 @Entity
@@ -27,13 +28,13 @@ public class ClientOrder {
 	private Date orderDate;
 
 	@ManyToOne
-	private User user;
+	private Customer customer;
 
-	public ClientOrder(List<Product> products, Date orderDate, User user) {
+	public ClientOrder(List<Product> products, Date orderDate, Customer user) {
 		super();
 		this.products = products;
 		this.orderDate = orderDate;
-		this.user = user;
+		this.customer = user;
 	}
 
 	public Long getId() {
@@ -61,11 +62,11 @@ public class ClientOrder {
 	}
 
 	public User getUser() {
-		return user;
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(Customer customer) {
+		this.customer = customer;
 	}
 
 }

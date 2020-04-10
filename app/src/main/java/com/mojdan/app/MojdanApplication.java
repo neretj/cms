@@ -12,6 +12,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.mojdan.app.model.user.Customer;
+import com.mojdan.app.model.user.CustomerRepository;
+import com.mojdan.app.model.user.Seller;
+import com.mojdan.app.model.user.SellerRepository;
 import com.mojdan.app.model.user.User;
 import com.mojdan.app.model.user.UserRepository;
 
@@ -29,27 +33,29 @@ public class MojdanApplication {
 	  }
 
 	  @Bean
-	  public CommandLineRunner demo(UserRepository repository) {
+	  public CommandLineRunner demo(UserRepository userRepo) {
 	    return (args) -> {
 	      // save a few users
 	     
-	    	repository.save(new User("jack", bCryptPasswordEncoder.encode("prueba1"), "Jack", "Aaa"));
-			repository.save(new User("chloe", bCryptPasswordEncoder.encode("prueba2"), "Chloe", "Heinz"));
-			repository.save(new User("kim", bCryptPasswordEncoder.encode("prueba3"), "Kim", "Jones"));
-			repository.save(new User("michelle", bCryptPasswordEncoder.encode("prueba4"), "Michelle", "Hanss"));
-			repository.save(new User("admin", bCryptPasswordEncoder.encode("admin"), "admin", "--"));
-			repository.save(new User("jack", bCryptPasswordEncoder.encode("user"), "user", "Radd"));
-
+	    		userRepo.save(new User("jack", bCryptPasswordEncoder.encode("prueba1"), "Jack", "Aaa"));
+			userRepo.save(new User("chloe", bCryptPasswordEncoder.encode("prueba2"), "Chloe", "Heinz"));
+			userRepo.save(new User("kim", bCryptPasswordEncoder.encode("prueba3"), "Kim", "Jones"));
+			userRepo.save(new User("michelle", bCryptPasswordEncoder.encode("prueba4"), "Michelle", "Hanss"));
+			userRepo.save(new User("admin", bCryptPasswordEncoder.encode("admin"), "admin", "--"));
+			userRepo.save(new User("jack", bCryptPasswordEncoder.encode("user"), "user", "Radd"));
+			userRepo.save(new Customer("customer", bCryptPasswordEncoder.encode("customer"), "user", "Radd", "Prueba "));			
+			userRepo.save(new Seller("seller", bCryptPasswordEncoder.encode("seller"), "user", "Radd", 234));
+			
 	      // fetch all users
 	      log.info("Users found with findAll():");
 	      log.info("-------------------------------");
-	      for (User user : repository.findAll()) {
+	      for (User user : userRepo.findAll()) {
 	        log.info(user.toString());
 	      }
 	      log.info("");
 
 	      // fetch an individual user by ID
-	      Optional<User> user = repository.findById(1L);
+	      Optional<User> user = userRepo.findById(1L);
 	      log.info("User found with findById(1L):");
 	      log.info("--------------------------------");
 	      log.info(user.toString());
@@ -58,7 +64,7 @@ public class MojdanApplication {
 	      // fetch users by last name
 	      log.info("User found with findByLastName('Bauer'):");
 	      log.info("--------------------------------------------");
-	      repository.findByName("Bauer").forEach(bauer -> {
+	      userRepo.findByName("Bauer").forEach(bauer -> {
 	        log.info(bauer.toString());
 	      });
 	      // for (User bauer : repository.findByLastName("Bauer")) {

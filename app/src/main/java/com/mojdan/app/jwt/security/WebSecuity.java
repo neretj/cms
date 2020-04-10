@@ -1,5 +1,7 @@
 package com.mojdan.app.jwt.security;
 
+import static com.mojdan.app.jwt.security.Constant.LOGIN_URL;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import static com.mojdan.app.jwt.security.Constant.LOGIN_URL;;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;;
 
 @Configuration
 @EnableWebSecurity
@@ -49,9 +49,9 @@ public class WebSecuity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		/*
 		 * 1. Se desactiva el uso de cookies
-		 * 2. Se activa la configuración CORS con los valores por defecto
+		 * 2. Se activa la configuracion CORS con los valores por defecto
 		 * 3. Se desactiva el filtro CSRF
-		 * 4. Se indica que el login no requiere autenticación
+		 * 4. Se indica que el login no requiere autenticacion
 		 * 5. Se indica que el resto de URLs esten securizadas
 		 */
 		httpSecurity
