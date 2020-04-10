@@ -24,6 +24,7 @@ import com.mojdan.app.service.error.UserIdMismatchException;
 import com.mojdan.app.service.user.UserService;
 
 @RestController
+@RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/users")
 public class UserController {
@@ -32,11 +33,14 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+<<<<<<< HEAD
 	
 	@RequestMapping("/user")
 	public Principal user(Principal user) {
 		return user;
 	}
+=======
+>>>>>>> Subido los cambios realizados para implementar JTW, seguridad del sistema
 
 	/*
 	 * @RequestMapping("/user") public Principal user(HttpServletRequest request) {
@@ -73,8 +77,12 @@ public class UserController {
 	@PostMapping("/create")
 	@ResponseStatus(HttpStatus.CREATED)
 	public User create(@RequestBody User user) {
+<<<<<<< HEAD
 		LOGGER.info("Creating user...", user.toString());
 		return userService.create(user);
+=======
+		return userService.save(user);
+>>>>>>> Subido los cambios realizados para implementar JTW, seguridad del sistema
 	}
 
 	@DeleteMapping("/{id}")
@@ -84,9 +92,18 @@ public class UserController {
 	}
 
 	@PutMapping("/update/{id}")
+<<<<<<< HEAD
 	public User updateUser(@RequestBody User user, @PathVariable Long id) {
 		LOGGER.info("Updating user...", id);
 		userService.findOne(id);
 		return userService.updateUser(user, id);
+=======
+	public User updateUser(@RequestBody User user) {
+		if (user.getId() == null) {
+			throw new UserIdMismatchException();
+		}
+		userService.findOne(user.getId());
+		return userService.save(user);
+>>>>>>> Subido los cambios realizados para implementar JTW, seguridad del sistema
 	}
 }

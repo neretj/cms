@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mojdan.app.model.user.User;
@@ -15,15 +16,14 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	@Override
-	public Iterable<User> findAll() {
-		return userRepository.findAll();
-	}
 
 	@Override
 	public ArrayList<User> findByName(String name) {
-		return new ArrayList<User> (userRepository.findByName(name));
+		return new ArrayList<User> (userRepository.findByName(name)); 
 	}
 
 	@Override
@@ -32,10 +32,6 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-	@Override
-	public User create(User user) {
-		return userRepository.save(user);
-	}
 
 	@Override
 	public void delete(Long id) {
@@ -43,18 +39,24 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 	}
 
-	@Override
-	public User updateUser(User user, Long id) {
-		if (user.getId() != id) {
-			throw new UserIdMismatchException();
-		}
-		userRepository.findById(id);
+
+	public User updateUser(User user) {
+		userRepository.findById(user.getId());
 		return userRepository.save(user);
 	}
 
-	@Override
 	public User save(User user) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
 
+	public User findOne(String userName) {
+		Optional<User> user = userRepository.findByUsername(userName);
+		return user.get();
+	}
+
+	@Override
+	public Iterable findAll() {
+		return userRepository.findAll();
+	}
 }
