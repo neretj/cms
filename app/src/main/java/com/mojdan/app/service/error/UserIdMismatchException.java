@@ -1,4 +1,4 @@
-package com.mojdan.app.service.user.util;
+package com.mojdan.app.service.error;
 
 public class UserIdMismatchException extends RuntimeException {
 

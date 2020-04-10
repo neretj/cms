@@ -1,6 +1,7 @@
 package com.mojdan.app.service.user;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,7 @@ public interface UserService {
 
 	public ArrayList<User> findByName(@PathVariable String name);
 
-	public User findOne(@PathVariable Long id);
+	public Optional<User> findOne(@PathVariable Long id);
 
 	public User create(@RequestBody User user);
 
