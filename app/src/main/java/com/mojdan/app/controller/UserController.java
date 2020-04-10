@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,37 +19,22 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mojdan.app.model.user.User;
-import com.mojdan.app.service.error.UserIdMismatchException;
 import com.mojdan.app.service.user.UserService;
 
 @RestController
-@RequestMapping("/api/users")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/users")
 public class UserController {
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-	
+
 	@Autowired
 	private UserService userService;
-<<<<<<< HEAD
-	
+
 	@RequestMapping("/user")
 	public Principal user(Principal user) {
 		return user;
 	}
-=======
->>>>>>> Subido los cambios realizados para implementar JTW, seguridad del sistema
-
-	/*
-	 * @RequestMapping("/user") public Principal user(HttpServletRequest request) {
-	 * String authToken = request.getHeader("Authorization")
-	 * .substring("Basic".length()).trim(); return () -> new
-	 * String(Base64.getDecoder() .decode(authToken)).split(":")[0]; }
-	 * 
-	 * List<Producto> lista = productoService.obtenerTodos();
-        return new ResponseEntity<List<Producto>>(lista, HttpStatus.OK);
-	 */
 
 	@GetMapping
 	@RequestMapping("/")
@@ -77,12 +61,8 @@ public class UserController {
 	@PostMapping("/create")
 	@ResponseStatus(HttpStatus.CREATED)
 	public User create(@RequestBody User user) {
-<<<<<<< HEAD
 		LOGGER.info("Creating user...", user.toString());
 		return userService.create(user);
-=======
-		return userService.save(user);
->>>>>>> Subido los cambios realizados para implementar JTW, seguridad del sistema
 	}
 
 	@DeleteMapping("/{id}")
@@ -92,18 +72,9 @@ public class UserController {
 	}
 
 	@PutMapping("/update/{id}")
-<<<<<<< HEAD
 	public User updateUser(@RequestBody User user, @PathVariable Long id) {
 		LOGGER.info("Updating user...", id);
 		userService.findOne(id);
 		return userService.updateUser(user, id);
-=======
-	public User updateUser(@RequestBody User user) {
-		if (user.getId() == null) {
-			throw new UserIdMismatchException();
-		}
-		userService.findOne(user.getId());
-		return userService.save(user);
->>>>>>> Subido los cambios realizados para implementar JTW, seguridad del sistema
 	}
 }

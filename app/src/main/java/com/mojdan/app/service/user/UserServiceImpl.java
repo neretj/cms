@@ -16,14 +16,18 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@Override
+	public Iterable<User> findAll() {
+		return userRepository.findAll();
+	}
 
 	@Override
 	public ArrayList<User> findByName(String name) {
-		return new ArrayList<User> (userRepository.findByName(name)); 
+		return new ArrayList<User>(userRepository.findByName(name));
 	}
 
 	@Override
@@ -32,31 +36,31 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
-
 	@Override
 	public void delete(Long id) {
 		userRepository.findById(id);
 		userRepository.deleteById(id);
 	}
 
-
-	public User updateUser(User user) {
-		userRepository.findById(user.getId());
+	@Override
+	public User updateUser(User user, Long id) {		
+		if (user.getId() != id) {
+			throw new UserIdMismatchException();
+		}
+		userRepository.findById(id);
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
 
+	@Override
 	public User save(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		return userRepository.save(user);
 	}
 
-	public User findOne(String userName) {
+	public Optional<User> findOne(String userName) {
 		Optional<User> user = userRepository.findByUsername(userName);
-		return user.get();
+		return user;
 	}
 
-	@Override
-	public Iterable findAll() {
-		return userRepository.findAll();
-	}
 }
