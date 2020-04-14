@@ -1,5 +1,6 @@
 package com.mojdan.app.model.order;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import javax.persistence.ManyToOne;
 
 import com.mojdan.app.model.product.Product;
 import com.mojdan.app.model.user.Customer;
-import com.mojdan.app.model.user.User;
 
 @Entity
 public class ClientOrder {
@@ -22,7 +22,7 @@ public class ClientOrder {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToMany(fetch=FetchType.EAGER) 
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Product> products;
 
 	private Date orderDate;
@@ -30,11 +30,20 @@ public class ClientOrder {
 	@ManyToOne
 	private Customer customer;
 
-	public ClientOrder(List<Product> products, Date orderDate, Customer user) {
-		super();
+	private BigDecimal totalAmount;
+
+	private OrderStatus status;
+
+	public ClientOrder() {
+	}
+
+	public ClientOrder(List<Product> products, Date orderDate, Customer user, BigDecimal totalAmount,
+			OrderStatus status) {
+		this.totalAmount = totalAmount;
 		this.products = products;
 		this.orderDate = orderDate;
 		this.customer = user;
+		this.status = status;
 	}
 
 	public Long getId() {
@@ -61,12 +70,36 @@ public class ClientOrder {
 		this.orderDate = orderDate;
 	}
 
-	public User getUser() {
+	public Customer getUser() {
 		return customer;
 	}
 
 	public void setUser(Customer customer) {
 		this.customer = customer;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
 	}
 
 }

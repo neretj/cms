@@ -1,38 +1,24 @@
-package com.mojdan.app.model.shop;
+package com.mojdan.app.service.store.dto;
 
 import java.util.List;
-
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 
 import com.mojdan.app.model.address.Address;
 import com.mojdan.app.model.product.Product;
 
-@Entity
-public class Shop {
+public class StoreDTO {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotNull(message = "Name is required.")
-	@Basic(optional = false)
 	private String name;
 
-	@OneToOne
 	private Address address;
 
-	@OneToMany(mappedBy = "shop")
 	private List<Product> products;
 
-	public Shop(Long id, @NotNull(message = "Name is required.") String name, Address address, List<Product> products) {
-		super();
+	public StoreDTO() {
+	}
+
+	public StoreDTO(Long id, String name, Address address, List<Product> products) {
 		this.id = id;
 		this.name = name;
 		this.address = address;

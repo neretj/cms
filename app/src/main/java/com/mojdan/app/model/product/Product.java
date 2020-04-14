@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import com.mojdan.app.model.category.Category;
 import com.mojdan.app.model.order.ClientOrder;
-import com.mojdan.app.model.shop.Shop;
+import com.mojdan.app.model.storecom.Storecom;
 
 @Entity
 public class Product {
@@ -32,7 +32,7 @@ public class Product {
 	private Category category;
 
 	@ManyToOne
-	private Shop shop;
+	private Storecom storecom;
 
 	private BigDecimal price;
 
@@ -44,20 +44,28 @@ public class Product {
 
 	@ManyToMany
 	private List<ClientOrder> clientOrder;
-	
-	/*Id?: number;  name?: string;  price?: number;  salePrice?: number;  discount?: number;  
-	 * offerDate: date,  pictures?: string;  shortDetails?: string;  description?: string;  
-	 * stock?: number;  new?: boolean;  sale?: boolean;  category?: string;  colors?: enum;  size?: enum;  tags?: enum;  status [active, inactive, outofstock..], brand: string, open: boolean, unitsInStock, unitsOnOrder
-*/
+
+	/*
+	 * Id?: number; name?: string; price?: number; salePrice?: number; discount?:
+	 * number; offerDate: date, pictures?: string; shortDetails?: string;
+	 * description?: string; stock?: number; new?: boolean; sale?: boolean;
+	 * category?: string; colors?: enum; size?: enum; tags?: enum; status [active,
+	 * inactive, outofstock..], brand: string, open: boolean, unitsInStock,
+	 * unitsOnOrder
+	 */
 
 	public Product() {
 	}
 
-	public Product(Long id, String name, BigDecimal price) {
-		this.id = id;
+	public Product(@NotNull(message = "Product name is required.") String name, Category category, Storecom storecom,
+			BigDecimal price, String pictureUrl, boolean isActive, Date creationDate) {
 		this.name = name;
+		this.category = category;
+		this.storecom = storecom;
 		this.price = price;
-		this.isActive = true;
+		this.pictureUrl = pictureUrl;
+		this.isActive = isActive;
+		this.creationDate = creationDate;
 	}
 
 	public Long getId() {
@@ -124,12 +132,12 @@ public class Product {
 		this.clientOrder = clientOrder;
 	}
 
-	public Shop getShop() {
-		return shop;
+	public Storecom getStorecom() {
+		return storecom;
 	}
 
-	public void setShop(Shop shop) {
-		this.shop = shop;
+	public void setStorecom(Storecom storecom) {
+		this.storecom = storecom;
 	}
 
 }

@@ -36,7 +36,7 @@ public class Customer {
 	private Address primaryAddress;
 	
 	@OneToMany
-	private List<Address> shippingAddress;
+	private List<Address> listAddresses;
 
 	@OneToMany(mappedBy = "customer")
 	private List<ClientOrder> clientOrders;
@@ -45,14 +45,11 @@ public class Customer {
 	}
 
 	public Customer(User user, @NotNull(message = "Firstname is required.") String firstName,
-			@NotNull(message = "Surname is required.") String lastName, Address primaryAddress,
-			List<Address> shippingAddress, List<ClientOrder> clientOrders) {
+			@NotNull(message = "Surname is required.") String lastName, Address primaryAddress) {
 		this.user = user;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.primaryAddress = primaryAddress;
-		this.shippingAddress = shippingAddress;
-		this.clientOrders = clientOrders;
 	}
 
 	public List<ClientOrder> getClientOrders() {
@@ -103,12 +100,12 @@ public class Customer {
 		this.primaryAddress = primaryAddress;
 	}
 
-	public List<Address> getShippingAddress() {
-		return shippingAddress;
+	public List<Address> getListAddresses() {
+		return listAddresses;
 	}
 
-	public void setShippingAddress(List<Address> shippingAddress) {
-		this.shippingAddress = shippingAddress;
+	public void setListAddresses(List<Address> listAddresses) {
+		this.listAddresses = listAddresses;
 	}
 
 }

@@ -1,15 +1,16 @@
 package com.mojdan.app.service.product;
 
-import java.util.Optional;
-
-import com.mojdan.app.model.product.Product;
+import com.mojdan.app.service.product.dto.ProductDTO;
 
 public interface ProductService {
 
-    public Iterable<Product> getAllProducts();
+    public Iterable<ProductDTO> getAllProducts();
  
-    public Optional<Product> getProduct(long id);
+    public ProductDTO findOne(long id);
  
-    public Product save(Product product);
+    public ProductDTO save(ProductDTO product);
+ 
+    public void delete(long id);
     
+    public ProductDTO updateProduct(ProductDTO productDTO);
 }
