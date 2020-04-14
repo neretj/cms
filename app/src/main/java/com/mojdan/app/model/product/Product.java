@@ -44,6 +44,11 @@ public class Product {
 
 	@ManyToMany
 	private List<ClientOrder> clientOrder;
+	
+	/*Id?: number;  name?: string;  price?: number;  salePrice?: number;  discount?: number;  
+	 * offerDate: date,  pictures?: string;  shortDetails?: string;  description?: string;  
+	 * stock?: number;  new?: boolean;  sale?: boolean;  category?: string;  colors?: enum;  size?: enum;  tags?: enum;  status [active, inactive, outofstock..], brand: string, open: boolean, unitsInStock, unitsOnOrder
+*/
 
 	public Product() {
 	}

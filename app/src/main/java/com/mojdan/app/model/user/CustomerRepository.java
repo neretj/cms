@@ -8,16 +8,16 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 
 @Transactional
-public interface CustomerRepository extends CrudRepository<User, Long> {
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-	List<User> findAll();
+	List<Customer> findAll();
 
-    List<User> findByName(String name);
+    List<Customer> findByFirstName(String name);
 
-    Optional<User> findById(Long id);
+    Optional<Customer> findById(Long id);
     
-    Optional<User> findByUsername(String username);
+    Optional<Customer> findByLastName(String lastName);
 
-    String getNameById(Long id);
+    String getFirstNameById(Long id);
     
 }

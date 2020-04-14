@@ -1,19 +1,15 @@
 package com.mojdan.app.model.user;
 
-import javax.persistence.Basic;
+import java.util.Date;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
-
-import com.mojdan.app.model.address.Address;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
 	@Id
@@ -24,34 +20,21 @@ public class User {
 
 	private String password;
 
-	@NotNull(message = "Firstname is required.")
-	@Basic(optional = false)
-	private String name;
+	private String phonenumber;
 
-	@NotNull(message = "Surname is required.")
-	@Basic(optional = false)
-	private String surname;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
-	@OneToOne
-	private Address address;
+	private String resetPassToken;
+
+	private Date dateExpPassToken;
 
 	public User() {
 	}
 
-	public User(String username, String password, String name, String surname) {
+	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.name = name;
-		this.surname = surname;
-	}
-
-	public User(String name, String surname) {
-		this.name = name;
-		this.surname = surname;
-	}
-
-	public User(String name) {
-		this.name = name;
 	}
 
 	public Long getId() {
@@ -60,30 +43,6 @@ public class User {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public String getUsername() {
@@ -102,10 +61,36 @@ public class User {
 		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", surname="
-				+ surname + "]";
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public String getResetPassToken() {
+		return resetPassToken;
+	}
+
+	public void setResetPassToken(String resetPassToken) {
+		this.resetPassToken = resetPassToken;
+	}
+
+	public Date getDateExpPassToken() {
+		return dateExpPassToken;
+	}
+
+	public void setDateExpPassToken(Date dateExpPassToken) {
+		this.dateExpPassToken = dateExpPassToken;
 	}
 
 }
