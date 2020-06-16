@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.mojdan.app.model.address.Address;
-import com.mojdan.app.model.storecom.Storecom;
+import com.mojdan.app.model.shop.Shop;
 
 @Entity
 public class Seller {
@@ -34,13 +34,13 @@ public class Seller {
 	private Address primaryAddress;
 
 	@ManyToOne
-	private Storecom storecom;
+	private Shop storecom;
 
 	public Seller() {
 	}
 
 	public Seller(User user, @NotNull(message = "Firstname is required.") String firstName,
-			@NotNull(message = "Surname is required.") String lastName, Address primaryAddress, Storecom storecom) {
+			@NotNull(message = "Surname is required.") String lastName, Address primaryAddress, Shop storecom) {
 		this.user = user;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -88,11 +88,11 @@ public class Seller {
 		this.primaryAddress = primaryAddress;
 	}
 
-	public Storecom getStorecom() {
+	public Shop getStorecom() {
 		return storecom;
 	}
 
-	public void setStorecom(Storecom storecom) {
+	public void setStorecom(Shop storecom) {
 		this.storecom = storecom;
 	}
 

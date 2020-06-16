@@ -1,22 +1,17 @@
-package com.mojdan.app.model.storecom;
-
-import java.util.List;
+package com.mojdan.app.model.shop;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import com.mojdan.app.model.address.Address;
-import com.mojdan.app.model.notification.Notification;
-import com.mojdan.app.model.user.Seller;
 
 @Entity
-public class Storecom {
+public class Shop {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,10 +24,10 @@ public class Storecom {
 	@OneToOne
 	private Address address;
 
-	public Storecom() {
+	public Shop() {
 	}
 
-	public Storecom(@NotNull(message = "Name is required.") String name, Address address) {
+	public Shop(@NotNull(message = "Name is required.") String name, Address address) {
 		this.name = name;
 		this.address = address;
 	}

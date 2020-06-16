@@ -4,17 +4,21 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ProductRepository extends CrudRepository<Product, Long>{
+public interface ProductRepository extends CrudRepository<Product, Long> {
 
-    List<Product> findAll();
+	List<Product> findAll();
 
-    List<Product> findByName(String name);
-    
-    List<Product> findByNameAndPrice(String name, BigDecimal price);
+	Page<Product> findAll(Pageable pageRequest);
 
-    Optional<Product> findById(Long id);
+	List<Product> findByName(String name);
+
+	List<Product> findByNameAndPrice(String name, BigDecimal price);
+
+	Optional<Product> findById(Long id);
 
 	List<Product> findByIsActiveTrue();
 

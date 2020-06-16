@@ -37,7 +37,7 @@ public class ProductController {
 	public Iterable<ProductDTO> findAllProducts(@RequestParam("page") int page, @RequestParam("size") int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		LOGGER.info("Finding all users...");
-		Iterable<ProductDTO> list = productService.getAllProducts();
+		Iterable<ProductDTO> list = productService.getAllProducts(pageable);
 		LOGGER.info("...returning users ", list.toString());
 		return list;
 	}

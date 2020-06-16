@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import com.mojdan.app.model.category.Category;
 import com.mojdan.app.model.order.ClientOrder;
-import com.mojdan.app.model.storecom.Storecom;
+import com.mojdan.app.model.shop.Shop;
 
 @Entity
 public class Product {
@@ -32,7 +32,7 @@ public class Product {
 	private Category category;
 
 	@ManyToOne
-	private Storecom storecom;
+	private Shop storecom;
 
 	private BigDecimal price;
 
@@ -57,7 +57,7 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(@NotNull(message = "Product name is required.") String name, Category category, Storecom storecom,
+	public Product(@NotNull(message = "Product name is required.") String name, Category category, Shop storecom,
 			BigDecimal price, String pictureUrl, boolean isActive, Date creationDate) {
 		this.name = name;
 		this.category = category;
@@ -132,11 +132,11 @@ public class Product {
 		this.clientOrder = clientOrder;
 	}
 
-	public Storecom getStorecom() {
+	public Shop getStorecom() {
 		return storecom;
 	}
 
-	public void setStorecom(Storecom storecom) {
+	public void setStorecom(Shop storecom) {
 		this.storecom = storecom;
 	}
 

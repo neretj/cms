@@ -1,4 +1,4 @@
-package com.mojdan.app.model.storecom;
+package com.mojdan.app.model.shop;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StorecomRepository extends CrudRepository<Storecom, Long> {
+public interface ShopRepository extends CrudRepository<Shop, Long> {
 
-	List<Storecom> findAll();
+	List<Shop> findAll();
 
 }

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.mojdan.app.model.category.Category;
-import com.mojdan.app.model.storecom.Storecom;
+import com.mojdan.app.model.shop.Shop;
 
 public class ProductDTO {
 
@@ -16,7 +16,7 @@ public class ProductDTO {
 
 	private Category category;
 
-	private Storecom store;
+	private Shop store;
 
 	private BigDecimal price;
 
@@ -29,7 +29,7 @@ public class ProductDTO {
 	public ProductDTO() {
 	}
 
-	public ProductDTO(Long id, String name, Category category, Storecom store, BigDecimal price, String pictureUrl,
+	public ProductDTO(Long id, String name, Category category, Shop store, BigDecimal price, String pictureUrl,
 			boolean isActive, Date creationDate, String description) {
 		this.id = id;
 		this.name = name;
@@ -74,11 +74,11 @@ public class ProductDTO {
 		this.category = category;
 	}
 
-	public Storecom getStore() {
+	public Shop getStore() {
 		return store;
 	}
 
-	public void setStore(Storecom store) {
+	public void setStore(Shop store) {
 		this.store = store;
 	}
 

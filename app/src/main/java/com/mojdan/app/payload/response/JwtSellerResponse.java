@@ -3,7 +3,7 @@ package com.mojdan.app.payload.response;
 import java.util.List;
 
 import com.mojdan.app.model.address.Address;
-import com.mojdan.app.model.storecom.Storecom;
+import com.mojdan.app.model.shop.Shop;
 
 public class JwtSellerResponse {
 	private String token;
@@ -15,11 +15,11 @@ public class JwtSellerResponse {
 	// Seller
 	private String firstName;
 	private String lastName;
-	private Storecom storecom;
+	private Shop storecom;
 	private Address address;
 
 	public JwtSellerResponse(String token, Long id, String username, String email, List<String> roles, String firstName,
-			String lastName, Storecom storecom, Address address) {
+			String lastName, Shop storecom, Address address) {
 		this.token = token;
 		this.id = id;
 		this.username = username;
@@ -111,11 +111,11 @@ public class JwtSellerResponse {
 		this.lastName = lastName;
 	}
 
-	public Storecom getStorecom() {
+	public Shop getStorecom() {
 		return storecom;
 	}
 
-	public void setStorecom(Storecom storecom) {
+	public void setStorecom(Shop storecom) {
 		this.storecom = storecom;
 	}
 

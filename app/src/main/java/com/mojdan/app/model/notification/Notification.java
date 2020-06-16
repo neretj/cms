@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import com.mojdan.app.model.storecom.Storecom;
+import com.mojdan.app.model.shop.Shop;
 
 @Entity
 public class Notification {
@@ -24,7 +24,7 @@ public class Notification {
 	@NotNull(message = "Store is required.")
 	@Basic(optional = false)
 	@ManyToOne
-	private Storecom storecom;
+	private Shop storecom;
 
 	@NotNull(message = "Description is required.")
 	@Basic(optional = false)
@@ -45,7 +45,7 @@ public class Notification {
 	public Notification() {
 	}
 
-	public Notification(Storecom storecom, String description, NotificationStatus status, NotificationType type) {
+	public Notification(Shop storecom, String description, NotificationStatus status, NotificationType type) {
 		this.storecom = storecom;
 		this.description = description;
 		this.status = status;
@@ -61,11 +61,11 @@ public class Notification {
 		this.id = id;
 	}
 
-	public Storecom getStorecom() {
+	public Shop getStorecom() {
 		return storecom;
 	}
 
-	public void setStorecom(Storecom storecom) {
+	public void setStorecom(Shop storecom) {
 		this.storecom = storecom;
 	}
 

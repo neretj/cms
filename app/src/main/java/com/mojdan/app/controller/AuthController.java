@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mojdan.app.jwt.security.JwtUtils;
 import com.mojdan.app.model.address.Address;
 import com.mojdan.app.model.address.AddressRepository;
-import com.mojdan.app.model.storecom.Storecom;
-import com.mojdan.app.model.storecom.StorecomRepository;
+import com.mojdan.app.model.shop.Shop;
+import com.mojdan.app.model.shop.ShopRepository;
 import com.mojdan.app.model.user.Customer;
 import com.mojdan.app.model.user.CustomerRepository;
 import com.mojdan.app.model.user.ERole;
@@ -66,7 +66,7 @@ public class AuthController {
 	SellerRepository sellerRepository;
 
 	@Autowired
-	StorecomRepository storeRpository;
+	ShopRepository storeRpository;
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -149,7 +149,7 @@ public class AuthController {
 					signUpRequest.getCountry(), signUpRequest.getPostalCode());
 			addressRepository.save(primaryAddress);
 
-			Storecom store = new Storecom(signUpRequest.getStoreName(), signUpRequest.getStoreAddress());
+			Shop store = new Shop(signUpRequest.getStoreName(), signUpRequest.getStoreAddress());
 			storeRpository.save(store);
 
 			Seller seller = new Seller(user, signUpRequest.getFirstName(), signUpRequest.getLastName(), primaryAddress,

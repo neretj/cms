@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mojdan.app.service.store.StoreService;
-import com.mojdan.app.service.store.dto.StoreDTO;
+import com.mojdan.app.service.shop.ShopService;
+import com.mojdan.app.service.shop.dto.ShopDTO;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -29,28 +29,28 @@ public class StoreController {
 	private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
-	private StoreService storeService;
+	private ShopService storeService;
 
 	@GetMapping("/all")
 	@PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
-	public Iterable<StoreDTO> findAllStores(@RequestParam("page") int page, @RequestParam("size") int size) {
+	public Iterable<ShopDTO> findAllStores(@RequestParam("page") int page, @RequestParam("size") int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		LOGGER.info("Finding all users...");
-		Iterable<StoreDTO> list = storeService.getAllStores();
+		Iterable<ShopDTO> list = storeService.getAllStores();
 		LOGGER.info("...returning users ", list.toString());
 		return list;
 	}
 
 	@GetMapping("/find/id")
-	public StoreDTO findOne(@RequestParam(value = "id") Long id) {
+	public ShopDTO findOne(@RequestParam(value = "id") Long id) {
 		LOGGER.info("Finding store by id", id);
-		StoreDTO store = storeService.findOne(id);
+		ShopDTO store = storeService.findOne(id);
 		return store;
 	}
 
 	@PostMapping("/create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public StoreDTO create(@RequestBody StoreDTO store) {
+	public ShopDTO create(@RequestBody ShopDTO store) {
 		LOGGER.info("Creating store...", store.toString());
 		return storeService.save(store);
 	}
@@ -62,7 +62,7 @@ public class StoreController {
 	}
 
 	@PutMapping("/update/{id}")
-	public StoreDTO updateUser(@RequestBody StoreDTO store, @PathVariable Long id) {
+	public ShopDTO updateUser(@RequestBody ShopDTO store, @PathVariable Long id) {
 		LOGGER.info("Updating store...", id);
 		storeService.findOne(id);
 		return storeService.updateStore(store);

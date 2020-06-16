@@ -29,8 +29,8 @@ import com.mojdan.app.model.order.ClientOrderRepository;
 import com.mojdan.app.model.order.OrderStatus;
 import com.mojdan.app.model.product.Product;
 import com.mojdan.app.model.product.ProductRepository;
-import com.mojdan.app.model.storecom.Storecom;
-import com.mojdan.app.model.storecom.StorecomRepository;
+import com.mojdan.app.model.shop.Shop;
+import com.mojdan.app.model.shop.ShopRepository;
 import com.mojdan.app.model.user.Customer;
 import com.mojdan.app.model.user.CustomerRepository;
 import com.mojdan.app.model.user.ERole;
@@ -59,7 +59,7 @@ public class MojdanApplication {
 	@Bean
 	public CommandLineRunner demo(UserRepository userRepo, CustomerRepository customerRepo,
 			AddressRepository addressRepo, RoleRepository roleRepository, ProductRepository productRepo,
-			ClientOrderRepository clientOrderRepo, StorecomRepository storeRepo, CategoryRepository categoryRepo,
+			ClientOrderRepository clientOrderRepo, ShopRepository storeRepo, CategoryRepository categoryRepo,
 			SellerRepository sellerRepo, NotificationRepository notificationRepo) {
 		return (args) -> {
 			// save a few users
@@ -104,8 +104,8 @@ public class MojdanApplication {
 					new User("chloe2", bCryptPasswordEncoder.encode("chloe"), "678737362", Status.ACTIVE, roleUser));
 			customerRepo.save(new Customer(user7, "Chloe", "Heinz", addr));
 
-			Storecom storeIkea = storeRepo.save(new Storecom("Ikea", addr));
-			Storecom storeZara = storeRepo.save(new Storecom("Zara", addr));
+			Shop storeIkea = storeRepo.save(new Shop("Ikea", addr));
+			Shop storeZara = storeRepo.save(new Shop("Zara", addr));
 
 			generateProductAndClientOrderData(productRepo, clientOrderRepo, storeRepo, categoryRepo, addr, c1, c2, c3,
 					storeIkea, storeZara);
@@ -156,8 +156,8 @@ public class MojdanApplication {
 		};
 	}
 
-	private void generateNotificationData(NotificationRepository notificationRepo, Storecom storeIkea,
-			Storecom storeZara) {
+	private void generateNotificationData(NotificationRepository notificationRepo, Shop storeIkea,
+			Shop storeZara) {
 		Notification n1 = notificationRepo.save(new Notification(storeZara, "New user registered",
 				NotificationStatus.OPEN, NotificationType.NEW_REGISTER));
 		Notification n2 = notificationRepo.save(
@@ -177,8 +177,8 @@ public class MojdanApplication {
 	}
 
 	private void generateProductAndClientOrderData(ProductRepository productRepo, ClientOrderRepository clientOrderRepo,
-			StorecomRepository storeRepo, CategoryRepository categoryRepo, Address addr, Customer c1, Customer c2,
-			Customer c3, Storecom storeIkea, Storecom storeZara) {
+			ShopRepository storeRepo, CategoryRepository categoryRepo, Address addr, Customer c1, Customer c2,
+			Customer c3, Shop storeIkea, Shop storeZara) {
 		Category categoryF = categoryRepo.save(new Category("Furniture"));
 
 		Product product1_1 = productRepo.save(new Product("Table Ikea", categoryF, storeIkea, new BigDecimal(80.60),

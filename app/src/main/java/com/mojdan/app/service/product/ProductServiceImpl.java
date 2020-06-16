@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mojdan.app.model.product.Product;
@@ -24,6 +26,13 @@ public class ProductServiceImpl implements ProductService {
 	public Iterable<ProductDTO> getAllProducts() {
 		List<Product> list = productRepository.findAll();
 		return productConverter.toDTOs(list);
+	}
+	
+	@Override
+	public Page<ProductDTO> getAllProducts(Pageable pageRequest) {
+		Page<Product> page = productRepository.findAll(pageRequest);
+		Page<ProductDTO> pageDTO = page.map(productConverter::toDTO);	
+		return pageDTO;
 	}
 
 	@Override

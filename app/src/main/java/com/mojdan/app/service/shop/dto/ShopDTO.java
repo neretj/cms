@@ -1,11 +1,11 @@
-package com.mojdan.app.service.store.dto;
+package com.mojdan.app.service.shop.dto;
 
 import java.util.List;
 
 import com.mojdan.app.model.address.Address;
 import com.mojdan.app.model.product.Product;
 
-public class StoreDTO {
+public class ShopDTO {
 
 	private Long id;
 
@@ -15,10 +15,10 @@ public class StoreDTO {
 
 	private List<Product> products;
 
-	public StoreDTO() {
+	public ShopDTO() {
 	}
 
-	public StoreDTO(Long id, String name, Address address, List<Product> products) {
+	public ShopDTO(Long id, String name, Address address, List<Product> products) {
 		this.id = id;
 		this.name = name;
 		this.address = address;

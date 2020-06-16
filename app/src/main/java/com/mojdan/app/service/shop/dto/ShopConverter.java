@@ -1,4 +1,4 @@
-package com.mojdan.app.service.store.dto;
+package com.mojdan.app.service.shop.dto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,34 +6,34 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import com.mojdan.app.model.storecom.Storecom;
+import com.mojdan.app.model.shop.Shop;
 
 @Component
-public class StoreConverter {
-	public StoreDTO toDTO(Storecom store) {
-		StoreDTO storeDTO = new StoreDTO();
+public class ShopConverter {
+	public ShopDTO toDTO(Shop store) {
+		ShopDTO storeDTO = new ShopDTO();
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.map(store, storeDTO);
 		return storeDTO;
 	}
 
-	public Storecom toEntity(StoreDTO storeDTO) {
-		Storecom store = new Storecom();
+	public Shop toEntity(ShopDTO storeDTO) {
+		Shop store = new Shop();
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.map(storeDTO, store);
 		return store;
 	}
 
-	public List<StoreDTO> toDTOs(List<Storecom> list) {
-		List<StoreDTO> listDTOs = new ArrayList<StoreDTO>();
+	public List<ShopDTO> toDTOs(List<Shop> list) {
+		List<ShopDTO> listDTOs = new ArrayList<ShopDTO>();
 		list.forEach((entity) -> {
 			listDTOs.add(toDTO(entity));
 		});
 		return listDTOs;
 	}
 
-	public List<Storecom> toEntities(List<StoreDTO> listDTOs) {
-		List<Storecom> list = new ArrayList<Storecom>();
+	public List<Shop> toEntities(List<ShopDTO> listDTOs) {
+		List<Shop> list = new ArrayList<Shop>();
 		listDTOs.forEach((dto) -> {
 			list.add(toEntity(dto));
 		});

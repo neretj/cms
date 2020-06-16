@@ -4,18 +4,18 @@ import java.util.Date;
 
 import com.mojdan.app.model.notification.NotificationStatus;
 import com.mojdan.app.model.notification.NotificationType;
-import com.mojdan.app.model.storecom.Storecom;
+import com.mojdan.app.model.shop.Shop;
 
 public class NotificationDTO {
 
 	private Long id;
-	private Storecom storecom;
+	private Shop storecom;
 	private String description;
 	private NotificationStatus status;
 	private NotificationType type;
 	private Date creationDate;
 
-	public NotificationDTO(Long id, Storecom storecom, String description, NotificationStatus status,
+	public NotificationDTO(Long id, Shop storecom, String description, NotificationStatus status,
 			NotificationType type, Date creationDate) {
 		this.id = id;
 		this.storecom = storecom;
@@ -36,11 +36,11 @@ public class NotificationDTO {
 		this.id = id;
 	}
 
-	public Storecom getStorecom() {
+	public Shop getStorecom() {
 		return storecom;
 	}
 
-	public void setStorecom(Storecom storecom) {
+	public void setStorecom(Shop storecom) {
 		this.storecom = storecom;
 	}
 
