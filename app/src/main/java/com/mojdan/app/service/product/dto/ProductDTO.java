@@ -2,9 +2,11 @@ package com.mojdan.app.service.product.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import com.mojdan.app.model.category.Category;
 import com.mojdan.app.model.shop.Shop;
+import com.mojdan.app.service.tag.dto.TagDTO;
 
 public class ProductDTO {
 
@@ -16,9 +18,15 @@ public class ProductDTO {
 
 	private Category category;
 
-	private Shop store;
+	private Shop shop;
 
 	private BigDecimal price;
+
+	private BigDecimal priceWithoutTaxes;
+	
+	private BigDecimal taxRate;
+	
+	private BigDecimal discount;
 
 	private String pictureUrl;
 
@@ -26,15 +34,21 @@ public class ProductDTO {
 
 	private Date creationDate;
 
+	private List<TagDTO> tags;
+	
+	private String inventoryCode;
+	
+	private Long stock;
+	
 	public ProductDTO() {
 	}
 
-	public ProductDTO(Long id, String name, Category category, Shop store, BigDecimal price, String pictureUrl,
+	public ProductDTO(Long id, String name, Category category, Shop shop, BigDecimal price, String pictureUrl,
 			boolean isActive, Date creationDate, String description) {
 		this.id = id;
 		this.name = name;
 		this.category = category;
-		this.store = store;
+		this.shop = shop;
 		this.price = price;
 		this.pictureUrl = pictureUrl;
 		this.isActive = isActive;
@@ -74,12 +88,12 @@ public class ProductDTO {
 		this.category = category;
 	}
 
-	public Shop getStore() {
-		return store;
+	public Shop getShop() {
+		return shop;
 	}
 
-	public void setStore(Shop store) {
-		this.store = store;
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 	public BigDecimal getPrice() {
@@ -112,6 +126,54 @@ public class ProductDTO {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public List<TagDTO> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<TagDTO> tags) {
+		this.tags = tags;
+	}
+
+	public BigDecimal getPriceWithoutTaxes() {
+		return priceWithoutTaxes;
+	}
+
+	public void setPriceWithoutTaxes(BigDecimal priceWithoutTaxes) {
+		this.priceWithoutTaxes = priceWithoutTaxes;
+	}
+
+	public BigDecimal getTaxRate() {
+		return taxRate;
+	}
+
+	public void setTaxRate(BigDecimal taxRate) {
+		this.taxRate = taxRate;
+	}
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+	public String getInventoryCode() {
+		return inventoryCode;
+	}
+
+	public void setInventoryCode(String inventoryCode) {
+		this.inventoryCode = inventoryCode;
+	}
+
+	public Long getStock() {
+		return stock;
+	}
+
+	public void setStock(Long stock) {
+		this.stock = stock;
 	}
 
 }

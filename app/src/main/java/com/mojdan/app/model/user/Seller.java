@@ -34,18 +34,18 @@ public class Seller {
 	private Address primaryAddress;
 
 	@ManyToOne
-	private Shop storecom;
+	private Shop shop;
 
 	public Seller() {
 	}
 
 	public Seller(User user, @NotNull(message = "Firstname is required.") String firstName,
-			@NotNull(message = "Surname is required.") String lastName, Address primaryAddress, Shop storecom) {
+			@NotNull(message = "Surname is required.") String lastName, Address primaryAddress, Shop shop) {
 		this.user = user;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.primaryAddress = primaryAddress;
-		this.storecom = storecom;
+		this.shop = shop;
 	}
 
 	public Long getId() {
@@ -88,12 +88,12 @@ public class Seller {
 		this.primaryAddress = primaryAddress;
 	}
 
-	public Shop getStorecom() {
-		return storecom;
+	public Shop getShop() {
+		return shop;
 	}
 
-	public void setStorecom(Shop storecom) {
-		this.storecom = storecom;
+	public void setShop(Shop storecom) {
+		this.shop = storecom;
 	}
 
 }

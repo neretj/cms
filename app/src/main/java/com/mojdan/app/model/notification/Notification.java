@@ -24,7 +24,7 @@ public class Notification {
 	@NotNull(message = "Store is required.")
 	@Basic(optional = false)
 	@ManyToOne
-	private Shop storecom;
+	private Shop shop;
 
 	@NotNull(message = "Description is required.")
 	@Basic(optional = false)
@@ -45,8 +45,8 @@ public class Notification {
 	public Notification() {
 	}
 
-	public Notification(Shop storecom, String description, NotificationStatus status, NotificationType type) {
-		this.storecom = storecom;
+	public Notification(Shop shop, String description, NotificationStatus status, NotificationType type) {
+		this.shop = shop;
 		this.description = description;
 		this.status = status;
 		this.type = type;
@@ -61,12 +61,12 @@ public class Notification {
 		this.id = id;
 	}
 
-	public Shop getStorecom() {
-		return storecom;
+	public Shop getShop() {
+		return shop;
 	}
 
-	public void setStorecom(Shop storecom) {
-		this.storecom = storecom;
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 	public String getDescription() {

@@ -31,7 +31,7 @@ public class NotificationServiceImpl implements NotificationService {
 	public Iterable<NotificationDTO> findOpenNotifications(Long storeId) {
 
 		Iterable<NotificationDTO> list = new ArrayList<NotificationDTO>();
-		List<Notification> notifications = notificationRepo.findAllByStorecomIdAndStatus(storeId, NotificationStatus.OPEN);
+		List<Notification> notifications = notificationRepo.findAllByShopIdAndStatus(storeId, NotificationStatus.OPEN);
 		list = notificationConverter.toDTOs(notifications);
 
 		return list;

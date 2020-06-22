@@ -31,6 +31,8 @@ import com.mojdan.app.model.product.Product;
 import com.mojdan.app.model.product.ProductRepository;
 import com.mojdan.app.model.shop.Shop;
 import com.mojdan.app.model.shop.ShopRepository;
+import com.mojdan.app.model.tag.Tag;
+import com.mojdan.app.model.tag.TagRepository;
 import com.mojdan.app.model.user.Customer;
 import com.mojdan.app.model.user.CustomerRepository;
 import com.mojdan.app.model.user.ERole;
@@ -60,7 +62,7 @@ public class MojdanApplication {
 	public CommandLineRunner demo(UserRepository userRepo, CustomerRepository customerRepo,
 			AddressRepository addressRepo, RoleRepository roleRepository, ProductRepository productRepo,
 			ClientOrderRepository clientOrderRepo, ShopRepository storeRepo, CategoryRepository categoryRepo,
-			SellerRepository sellerRepo, NotificationRepository notificationRepo) {
+			SellerRepository sellerRepo, NotificationRepository notificationRepo, TagRepository tagRepo) {
 		return (args) -> {
 			// save a few users
 
@@ -107,7 +109,7 @@ public class MojdanApplication {
 			Shop storeIkea = storeRepo.save(new Shop("Ikea", addr));
 			Shop storeZara = storeRepo.save(new Shop("Zara", addr));
 
-			generateProductAndClientOrderData(productRepo, clientOrderRepo, storeRepo, categoryRepo, addr, c1, c2, c3,
+			generateProductAndClientOrderData(productRepo, clientOrderRepo, storeRepo, categoryRepo, tagRepo, addr, c1, c2, c3,
 					storeIkea, storeZara);
 
 			/*** SELLER ***/
@@ -177,14 +179,21 @@ public class MojdanApplication {
 	}
 
 	private void generateProductAndClientOrderData(ProductRepository productRepo, ClientOrderRepository clientOrderRepo,
-			ShopRepository storeRepo, CategoryRepository categoryRepo, Address addr, Customer c1, Customer c2,
+			ShopRepository storeRepo, CategoryRepository categoryRepo, TagRepository tagRepo, Address addr, Customer c1, Customer c2,
 			Customer c3, Shop storeIkea, Shop storeZara) {
 		Category categoryF = categoryRepo.save(new Category("Furniture"));
 
-		Product product1_1 = productRepo.save(new Product("Table Ikea", categoryF, storeIkea, new BigDecimal(80.60),
-				"ing/f/p_1.png", true, new Date()));
-		Product product1_2 = productRepo.save(new Product("Chair Ikea", categoryF, storeIkea, new BigDecimal(40.60),
-				"ing/f/p_2.png", true, new Date()));
+		Tag tag = tagRepo.save(new Tag("Tag1"));
+		Tag tag2 = tagRepo.save(new Tag("Tag2"));
+		List<Tag> tags = new ArrayList<Tag>();
+		tags.add(new Tag("Tag1"));tags.add(new Tag("Tag2"));
+		Product a = new Product("Table Ikea", categoryF, storeIkea, new BigDecimal(80.60),
+				"ing/f/p_1.png", true, new Date());
+		a.setTags(tags);
+		Product product1_1 = productRepo.save(a);
+		Product b = new Product("Chair Ikea", categoryF, storeIkea, new BigDecimal(40.60),
+				"ing/f/p_2.png", true, new Date());
+		Product product1_2 = productRepo.save(b);
 		Product product1_3 = productRepo.save(new Product("Wardrobe Ikea", categoryF, storeIkea, new BigDecimal(43.35),
 				"ing/f/p_3.png", true, new Date()));
 		Product product1_4 = productRepo.save(new Product("Shelving Ikea", categoryF, storeIkea, new BigDecimal(23.90),

@@ -15,11 +15,11 @@ public class JwtSellerResponse {
 	// Seller
 	private String firstName;
 	private String lastName;
-	private Shop storecom;
+	private Shop shop;
 	private Address address;
 
 	public JwtSellerResponse(String token, Long id, String username, String email, List<String> roles, String firstName,
-			String lastName, Shop storecom, Address address) {
+			String lastName, Shop shop, Address address) {
 		this.token = token;
 		this.id = id;
 		this.username = username;
@@ -27,7 +27,7 @@ public class JwtSellerResponse {
 		this.roles = roles;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.storecom = storecom;
+		this.shop = shop;
 		this.address = address;
 	}
 
@@ -111,12 +111,12 @@ public class JwtSellerResponse {
 		this.lastName = lastName;
 	}
 
-	public Shop getStorecom() {
-		return storecom;
+	public Shop getShop() {
+		return shop;
 	}
 
-	public void setStorecom(Shop storecom) {
-		this.storecom = storecom;
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 	public Address getAddress() {

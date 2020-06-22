@@ -1,5 +1,7 @@
 package com.mojdan.app.service.product;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,6 +12,8 @@ public interface ProductService {
 	public Iterable<ProductDTO> getAllProducts();
 
 	public Page<ProductDTO> getAllProducts(Pageable pageRequest);
+	
+	public void removeProducts(Iterable<ProductDTO> products);
 
 	public ProductDTO findOne(long id);
 

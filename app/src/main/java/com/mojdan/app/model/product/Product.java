@@ -5,10 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
@@ -16,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import com.mojdan.app.model.category.Category;
 import com.mojdan.app.model.order.ClientOrder;
 import com.mojdan.app.model.shop.Shop;
+import com.mojdan.app.model.tag.Tag;
 
 @Entity
 public class Product {
@@ -32,36 +37,45 @@ public class Product {
 	private Category category;
 
 	@ManyToOne
-	private Shop storecom;
+	private Shop shop;
 
 	private BigDecimal price;
+	
+	private BigDecimal priceWithoutTaxes;
+	
+	private BigDecimal taxRate;
+	
+	private BigDecimal discount;
 
 	private String pictureUrl;
 
 	private boolean isActive;
 
 	private Date creationDate;
+	
+	private String inventoryCode;
+	
+	private Long stock;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "Product_Tag", 
+        joinColumns = { @JoinColumn(name = "product_id") }, 
+        inverseJoinColumns = { @JoinColumn(name = "tag_id") }
+    )
+	private List<Tag> tags;
+	
+	@ManyToMany(mappedBy = "products", cascade = { CascadeType.ALL })
 	private List<ClientOrder> clientOrder;
-
-	/*
-	 * Id?: number; name?: string; price?: number; salePrice?: number; discount?:
-	 * number; offerDate: date, pictures?: string; shortDetails?: string;
-	 * description?: string; stock?: number; new?: boolean; sale?: boolean;
-	 * category?: string; colors?: enum; size?: enum; tags?: enum; status [active,
-	 * inactive, outofstock..], brand: string, open: boolean, unitsInStock,
-	 * unitsOnOrder
-	 */
 
 	public Product() {
 	}
 
-	public Product(@NotNull(message = "Product name is required.") String name, Category category, Shop storecom,
+	public Product(@NotNull(message = "Product name is required.") String name, Category category, Shop shop,
 			BigDecimal price, String pictureUrl, boolean isActive, Date creationDate) {
 		this.name = name;
 		this.category = category;
-		this.storecom = storecom;
+		this.shop = shop;
 		this.price = price;
 		this.pictureUrl = pictureUrl;
 		this.isActive = isActive;
@@ -132,12 +146,60 @@ public class Product {
 		this.clientOrder = clientOrder;
 	}
 
-	public Shop getStorecom() {
-		return storecom;
+	public Shop getShop() {
+		return shop;
 	}
 
-	public void setStorecom(Shop storecom) {
-		this.storecom = storecom;
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public BigDecimal getPriceWithoutTaxes() {
+		return priceWithoutTaxes;
+	}
+
+	public void setPriceWithoutTaxes(BigDecimal priceWithoutTaxes) {
+		this.priceWithoutTaxes = priceWithoutTaxes;
+	}
+
+	public BigDecimal getTaxRate() {
+		return taxRate;
+	}
+
+	public void setTaxRate(BigDecimal taxRate) {
+		this.taxRate = taxRate;
+	}
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+	public String getInventoryCode() {
+		return inventoryCode;
+	}
+
+	public void setInventoryCode(String inventoryCode) {
+		this.inventoryCode = inventoryCode;
+	}
+
+	public Long getStock() {
+		return stock;
+	}
+
+	public void setStock(Long stock) {
+		this.stock = stock;
 	}
 
 }

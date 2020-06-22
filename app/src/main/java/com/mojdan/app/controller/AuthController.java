@@ -91,7 +91,7 @@ public class AuthController {
 
 		JwtSellerResponse response = new JwtSellerResponse(jwt, userDetails.getId(), userDetails.getUsername(),
 				userDetails.getEmail(), roles, seller.get().getFirstName(), seller.get().getLastName(),
-				seller.get().getStorecom(), seller.get().getPrimaryAddress());
+				seller.get().getShop(), seller.get().getPrimaryAddress());
 
 		return ResponseEntity.ok(response);
 	}
@@ -149,11 +149,11 @@ public class AuthController {
 					signUpRequest.getCountry(), signUpRequest.getPostalCode());
 			addressRepository.save(primaryAddress);
 
-			Shop store = new Shop(signUpRequest.getStoreName(), signUpRequest.getStoreAddress());
-			storeRpository.save(store);
+			Shop shop = new Shop(signUpRequest.getStoreName(), signUpRequest.getStoreAddress());
+			storeRpository.save(shop);
 
 			Seller seller = new Seller(user, signUpRequest.getFirstName(), signUpRequest.getLastName(), primaryAddress,
-					store);
+					shop);
 			sellerRepository.save(seller);
 
 		} catch (Exception e) {

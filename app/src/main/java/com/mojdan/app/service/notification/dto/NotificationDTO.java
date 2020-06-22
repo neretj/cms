@@ -9,16 +9,16 @@ import com.mojdan.app.model.shop.Shop;
 public class NotificationDTO {
 
 	private Long id;
-	private Shop storecom;
+	private Shop shop;
 	private String description;
 	private NotificationStatus status;
 	private NotificationType type;
 	private Date creationDate;
 
-	public NotificationDTO(Long id, Shop storecom, String description, NotificationStatus status,
+	public NotificationDTO(Long id, Shop shop, String description, NotificationStatus status,
 			NotificationType type, Date creationDate) {
 		this.id = id;
-		this.storecom = storecom;
+		this.shop = shop;
 		this.description = description;
 		this.status = status;
 		this.type = type;
@@ -36,12 +36,12 @@ public class NotificationDTO {
 		this.id = id;
 	}
 
-	public Shop getStorecom() {
-		return storecom;
+	public Shop getShop() {
+		return shop;
 	}
 
-	public void setStorecom(Shop storecom) {
-		this.storecom = storecom;
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 	public String getDescription() {

@@ -1,7 +1,5 @@
 package com.mojdan.app.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,66 +19,59 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mojdan.app.model.tag.Tag;
-import com.mojdan.app.model.tag.TagRepository;
-import com.mojdan.app.service.product.ProductService;
-import com.mojdan.app.service.product.dto.ProductDTO;
+import com.mojdan.app.service.category.CategoryService;
+import com.mojdan.app.service.category.dto.CategoryDTO;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/products")
-public class ProductController {
+@RequestMapping("/api/category")
+public class CategoryController {
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
-	private ProductService productService;
-	@Autowired
-	private TagRepository tagrepo;
-
-	@GetMapping("/tagsall")
-	public List<Tag> findAllTags() {
-		List<Tag> list = tagrepo.findAll();
-		return list;
-	}
+	private CategoryService categoryService;
 
 	@GetMapping("/all")
 	@PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
-	public Iterable<ProductDTO> findAllProducts(@RequestParam("page") int page, @RequestParam("size") int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		Iterable<ProductDTO> list = productService.getAllProducts(pageable);
+	public Iterable<CategoryDTO> findAllCategories() {
+		Iterable<CategoryDTO> list = categoryService.getAllCategories();
 		return list;
 	}
 
-	@PostMapping("/removeproducts")
+	@GetMapping("/all/page")
 	@PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
-	public void removeProducts(@RequestBody Iterable<ProductDTO> products) {
-		productService.removeProducts(products);
+	public Iterable<CategoryDTO> findAllCateogires(@RequestParam("page") int page, @RequestParam("size") int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Iterable<CategoryDTO> list = categoryService.getAllCategories(pageable);
+		return list;
 	}
 
 	@GetMapping("/find/id")
-	public ProductDTO findOne(@RequestParam(value = "id") Long id) {
-		LOGGER.info("Finding product by id", id);
-		ProductDTO product = productService.findOne(id);
-		return product;
+	public CategoryDTO findOne(@RequestParam(value = "id") Long id) {
+		LOGGER.info("Finding category by id", id);
+		CategoryDTO category = categoryService.findOne(id);
+		return category;
 	}
 
 	@PostMapping("/create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ProductDTO create(@RequestBody ProductDTO product) {
-		LOGGER.info("Creating product...", product.toString());
-		return productService.save(product);
+	public CategoryDTO create(@RequestBody CategoryDTO category) {
+		LOGGER.info("Creating category...", category.toString());
+		return categoryService.save(category);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		productService.findOne(id);
-		productService.delete(id);
+		categoryService.findOne(id);
+		categoryService.delete(id);
 	}
 
 	@PutMapping("/update/{id}")
-	public ProductDTO updateProduct(@RequestBody ProductDTO product) {
-		return productService.updateProduct(product);
+	public CategoryDTO updateUser(@RequestBody CategoryDTO category, @PathVariable Long id) {
+		LOGGER.info("Updating category...", id);
+		categoryService.findOne(id);
+		return categoryService.updateCategory(category);
 	}
 
 }

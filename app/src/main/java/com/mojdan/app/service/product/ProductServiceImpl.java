@@ -1,5 +1,7 @@
 package com.mojdan.app.service.product;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,10 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.mojdan.app.model.category.CategoryRepository;
 import com.mojdan.app.model.product.Product;
 import com.mojdan.app.model.product.ProductRepository;
+import com.mojdan.app.model.tag.Tag;
+import com.mojdan.app.model.tag.TagRepository;
 import com.mojdan.app.service.product.dto.ProductConverter;
 import com.mojdan.app.service.product.dto.ProductDTO;
+import com.mojdan.app.service.tag.dto.TagDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -21,7 +27,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private TagRepository tagRepository;
 
+	@Autowired
+	private CategoryRepository category;
+	
 	@Override
 	public Iterable<ProductDTO> getAllProducts() {
 		List<Product> list = productRepository.findAll();
@@ -34,6 +46,14 @@ public class ProductServiceImpl implements ProductService {
 		Page<ProductDTO> pageDTO = page.map(productConverter::toDTO);	
 		return pageDTO;
 	}
+	
+	@Override
+	public void removeProducts(Iterable<ProductDTO> products) {		
+		List<ProductDTO> list = new ArrayList<ProductDTO>();
+		products.forEach(list::add);
+		List<Product> entities = productConverter.toEntities(list);
+		productRepository.deleteAll(entities);
+	}
 
 	@Override
 	public ProductDTO findOne(long id) {
@@ -42,8 +62,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductDTO save(ProductDTO product) {
-		Product saved = productRepository.save(productConverter.toEntity(product));
+	public ProductDTO save(ProductDTO product) {		
+		Product productToSave = productConverter.toEntity(product);
+		List<TagDTO> tags = product.getTags();
+		if (tags != null && !tags.isEmpty()) {
+			List<Tag> tagssaved = new ArrayList<Tag>();
+			tags.forEach((tag)->{
+				Tag tagtmp = tagRepository.findByName(tag.getName());
+				if (tagtmp == null) {
+					tagssaved.add(tagRepository.save(new Tag(tag.getName())));
+				} else {
+					tagssaved.add(tagtmp);
+				}
+			});
+			productToSave.setTags(tagssaved);
+		}
+		Product saved = productRepository.save(productToSave);
 		return productConverter.toDTO(saved);
 	}
 

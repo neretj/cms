@@ -13,5 +13,5 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 
 	List<Notification> findAll();
 	
-	List<Notification> findAllByStorecomIdAndStatus(Long id, NotificationStatus status);
+	List<Notification> findAllByShopIdAndStatus(Long id, NotificationStatus status);
 }
