@@ -5,7 +5,6 @@ import java.security.Principal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mojdan.app.service.customer.CustomerService;
 import com.mojdan.app.service.customer.dto.CustomerDTO;
-import com.mojdan.app.service.customer.dto.PageCustomerDTO;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -43,17 +41,10 @@ public class UserController {
 	
 	@GetMapping("/find/all")
 	@PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
-	public PageCustomerDTO findAllCustomers(@RequestParam("page") int page, @RequestParam("size") int size) {
-		LOGGER.info("Finding all users...");		
-		PageCustomerDTO pageCustomer = new PageCustomerDTO();
+	public Iterable<CustomerDTO> findAllCustomers(@RequestParam("page") int page, @RequestParam("size") int size) {
 		Pageable pageable = PageRequest.of(page, size);
-		Page<CustomerDTO> pageDTO = customerService.findAllCustomers(pageable);
-		pageCustomer.setPage(page);
-		pageCustomer.setSize(size);
-		pageCustomer.setList(pageDTO.getContent());
-		pageCustomer.setTotal(pageDTO.getTotalElements());
-		
-		return pageCustomer;
+		Iterable<CustomerDTO> pageDTO = customerService.findAllCustomers(pageable);		
+		return pageDTO;
 	}
 
 	@GetMapping("/find/username")

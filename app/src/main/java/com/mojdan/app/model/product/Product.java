@@ -15,9 +15,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import com.mojdan.app.model.category.Category;
+import com.mojdan.app.model.fileinfo.FileInfo;
 import com.mojdan.app.model.order.ClientOrder;
 import com.mojdan.app.model.shop.Shop;
 import com.mojdan.app.model.tag.Tag;
@@ -33,6 +35,8 @@ public class Product {
 	@Basic(optional = false)
 	private String name;
 
+	private String description;
+
 	@ManyToOne
 	private Category category;
 
@@ -47,7 +51,8 @@ public class Product {
 	
 	private BigDecimal discount;
 
-	private String pictureUrl;
+	@OneToMany
+	private List<FileInfo> pictureUrls;
 
 	private boolean isActive;
 
@@ -72,12 +77,12 @@ public class Product {
 	}
 
 	public Product(@NotNull(message = "Product name is required.") String name, Category category, Shop shop,
-			BigDecimal price, String pictureUrl, boolean isActive, Date creationDate) {
+			BigDecimal price, List<FileInfo> pictureUrls, boolean isActive, Date creationDate) {
 		this.name = name;
 		this.category = category;
 		this.shop = shop;
 		this.price = price;
-		this.pictureUrl = pictureUrl;
+		this.pictureUrls = pictureUrls;
 		this.isActive = isActive;
 		this.creationDate = creationDate;
 	}
@@ -106,12 +111,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public String getPictureUrl() {
-		return pictureUrl;
+	public List<FileInfo> getPictureUrls() {
+		return pictureUrls;
 	}
 
-	public void setPictureUrl(String pictureUrl) {
-		this.pictureUrl = pictureUrl;
+	public void setPictureUrl(List<FileInfo> pictureUrls) {
+		this.pictureUrls = pictureUrls;
 	}
 
 	public boolean isActive() {
@@ -200,6 +205,18 @@ public class Product {
 
 	public void setStock(Long stock) {
 		this.stock = stock;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setPictureUrls(List<FileInfo> pictureUrls) {
+		this.pictureUrls = pictureUrls;
 	}
 
 }

@@ -19,6 +19,7 @@ public class CustomerConverter {
 			customerDTO.setUsername(customer.getUser().getUsername());
 			customerDTO.setPhonenumber(customer.getUser().getPhonenumber());
 			customerDTO.setStatus(customer.getUser().getStatus());
+			customerDTO.setEmail(customer.getUser().getEmail());
 		}
 		return customerDTO;
 	}

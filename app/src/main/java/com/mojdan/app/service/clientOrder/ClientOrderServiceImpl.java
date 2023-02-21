@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,10 +30,18 @@ public class ClientOrderServiceImpl implements ClientOrderService {
 	}
 
 	@Override
-	public List<ClientOrderDTO> getLastClientOrders() {
+	public Page<ClientOrderDTO> getAllClientOrders(Pageable pageRequest) {
+		Page<ClientOrder> page = clientOrderRepository.findAll(pageRequest);
+		Page<ClientOrderDTO> pageDTO = page.map(clientOrderConverter::toDTO);
+		return pageDTO;
+	}
+
+	@Override
+	public Page<ClientOrderDTO> getLastClientOrders() {
 		Pageable pageable = PageRequest.of(0, 10);
-		List<ClientOrder> list = clientOrderRepository.findAll(pageable);
-		return clientOrderConverter.toDTOs(list);
+		Page<ClientOrder> page = clientOrderRepository.findAll(pageable);
+		Page<ClientOrderDTO> pageDTO = page.map(clientOrderConverter::toDTO);
+		return pageDTO;
 	}
 
 	@Override

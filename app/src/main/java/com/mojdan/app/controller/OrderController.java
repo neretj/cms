@@ -37,8 +37,9 @@ public class OrderController {
 
 	@GetMapping("/all")
 	@PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
-	public Iterable<ClientOrderDTO> findAllProducts() {
-		Iterable<ClientOrderDTO> list = clientOrderService.getAllClientOrders();
+	public Iterable<ClientOrderDTO> findAllOrders(@RequestParam("page") int page, @RequestParam("size") int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Iterable<ClientOrderDTO> list = clientOrderService.getAllClientOrders(pageable);
 		return list;
 	}
 
@@ -49,12 +50,12 @@ public class OrderController {
 		return list;
 	}
 
-//	@GetMapping("/find/id")
-//	public ClientOrderDTO findOne(@RequestParam(value = "id") Long id) {
-//		LOGGER.info("Finding clientOrder by id", id);
-//		ClientOrderDTO clientOrder = clientOrderService.findOne(id);
-//		return clientOrder;
-//	}
+	@GetMapping("/find/id")
+	public ClientOrderDTO findOne(@RequestParam(value = "id") Long id) {
+		LOGGER.info("Finding clientOrder by id", id);
+		ClientOrderDTO clientOrder = clientOrderService.getClientOrder(id);
+		return clientOrder;
+	}
 //
 //	@PostMapping("/create")
 //	@ResponseStatus(HttpStatus.CREATED)

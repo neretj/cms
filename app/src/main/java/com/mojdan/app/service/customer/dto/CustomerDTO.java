@@ -11,6 +11,8 @@ public class CustomerDTO {
 	private Long id;
 
 	private String username;
+	
+	private String email;
 
 	private String firstName;
 
@@ -80,6 +82,14 @@ public class CustomerDTO {
 
 	public void setPrimaryAddress(Address primaryAddress) {
 		this.primaryAddress = primaryAddress;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

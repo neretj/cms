@@ -53,7 +53,9 @@ public class User {
 		this.password = password;
 	}
 
-	public User(String username, String password, String phonenumber, Status status, Role role) {
+	public User(@NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 20) String username,
+			@NotBlank @Size(max = 20) String password, String phonenumber, Status status, Role role) {
+		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.phonenumber = phonenumber;
@@ -140,7 +142,7 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	
+
 	public void addRole(Role role) {
 		if (roles.isEmpty()) {
 			roles = new HashSet<Role>();

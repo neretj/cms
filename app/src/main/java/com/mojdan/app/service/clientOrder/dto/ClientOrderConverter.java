@@ -4,17 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mojdan.app.model.order.ClientOrder;
+import com.mojdan.app.model.user.CustomerRepository;
+import com.mojdan.app.service.customer.dto.CustomerConverter;
+import com.mojdan.app.service.customer.dto.CustomerDTO;
 
 @Component
 public class ClientOrderConverter {
 
-	public ClientOrderDTO toDTO(ClientOrder ClientOrder) {
+	@Autowired
+	private CustomerConverter customerConverter;
+	
+	public ClientOrderDTO toDTO(ClientOrder clientOrder) {
 		ClientOrderDTO clientOrderDTO = new ClientOrderDTO();
 		ModelMapper modelMapper = new ModelMapper();
-		modelMapper.map(ClientOrder, clientOrderDTO);
+		modelMapper.map(clientOrder, clientOrderDTO);
+		CustomerDTO customerDTO = customerConverter.toDTO(clientOrder.getCustomer());
+		clientOrderDTO.setCustomer(customerDTO);
 		return clientOrderDTO;
 	}
 
